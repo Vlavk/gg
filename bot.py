@@ -1,7 +1,6 @@
-
 import telebot
 from telebot import types
-from fixes import FIXES  # fixes.py ကို import လုပ်ထားပါသည်
+from fixes import FIXES  
 
 # Replace with your actual Bot Token
 bot = telebot.TeleBot("8689664926:AAFkgFbwGXwX0Iknl1VrXfs6OnEgBYf3b7I")
@@ -9,7 +8,6 @@ bot = telebot.TeleBot("8689664926:AAFkgFbwGXwX0Iknl1VrXfs6OnEgBYf3b7I")
 # ===== STEP 1: Start Handler =====
 @bot.message_handler(commands=['start'])
 def start(message):
-    # markup ကို ဤနေရာတွင် အရင်သတ်မှတ်ထားပါသည်
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add("🖥 Hardware Error", "💻 Software Error")
 
@@ -143,11 +141,10 @@ software_errors = [
 
 @bot.message_handler(func=lambda m: m.text == "🖥 Hardware Error")
 def show_hardware(message):
-    markup = types.InlineKeyboardMarkup(row_width=1) # row_width=1 makes buttons list vertically
+    markup = types.InlineKeyboardMarkup(row_width=1)
     for err in hardware_errors:
         markup.add(types.InlineKeyboardButton(err, callback_data=err))
     
-    # send_message တွင် message.chat.id နောက် ကွန်မာ `,` ပါရန်လိုပါသည်
     bot.send_message(message.chat.id, "🔧 Hardware Error ကိုရွေးပါ:", reply_markup=markup)
 
 @bot.message_handler(func=lambda m: m.text == "💻 Software Error")
@@ -156,7 +153,6 @@ def show_software(message):
     for err in software_errors:
         markup.add(types.InlineKeyboardButton(err, callback_data=err))
 
-    # send_message တွင် message.chat.id နောက် ကွန်မာ `,` ပါရန်လိုပါသည်
     bot.send_message(message.chat.id, "💻 Software Error ကိုရွေးပါ:", reply_markup=markup)
 
 # ===== STEP 4: Callback Handler (Show Fix) =====
@@ -172,7 +168,7 @@ def handle_callback(call):
     else:
         bot.send_message(
             call.message.chat.id,
-            "❌ ဒီ error အတွက် data မရှိသေးပါ"
+            "❌ ဒီ error အတွက် data မရှိသေးပါ (fixes.py ထဲထည့်သွင်းရန်လိုအပ်သည်)"
         )
 
 # ===== Contact Handler =====
