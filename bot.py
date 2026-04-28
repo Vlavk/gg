@@ -1,10 +1,13 @@
 import os
 import telebot
 from telebot import types
+# Assuming you have a file named fixes.py in the same directory
 from fixes import FIXES
 
-BOT_TOKEN = os.getenv("8689664926:AAFkgFbwGXwX0Iknl1VrXfs6OnEgBYf3b7I")
-bot = telebot.TeleBot("8689664926:AAFkgFbwGXwX0Iknl1VrXfs6OnEgBYf3b7I")
+# FIXED: Assign the token directly as a string
+BOT_TOKEN = "8689664926:AAFkgFbwGXwX0Iknl1VrXfs6OnEgBYf3b7I"
+
+bot = telebot.TeleBot(BOT_TOKEN)
 
 ITEMS_PER_PAGE = 8
 
